@@ -8,7 +8,7 @@ app.get("/", (req, res) => {
   .json({
     message: "Hello from server side",
     app: "Natours" });
-});
+})
 
 
 app.post('/' , (req, res) =>{
