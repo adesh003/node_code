@@ -2,6 +2,8 @@ const express = require('express');
 const fs = require('fs');
 const app = express();
 const morgan = require('morgan');
+const tourRouter = require('./Routes/tourRoutes')
+const userRouter = require('./Routes/userRoutes');
 
 /// 1 ) MIDDLEWARE
 
