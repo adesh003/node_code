@@ -16,6 +16,12 @@ dotenv.config({path:'./config.env'})
    })
    .then(() => console.log('MongoDB Connected successful'))
    
+   const tourSchemas = new mongoose.Schema({
+    name:String,
+    rating:Number,
+    price: Number
+   })
+   
    
 const app = require('./app');
 console.log(process.env);
