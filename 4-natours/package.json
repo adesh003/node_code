@@ -4,13 +4,17 @@
   "description": "learining node express and mongodb",
   "main": "index.js",
   "scripts": {
-    "start":"nodemon server.js"
-   
+    "start": "nodemon server.js"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "dotenv": "^16.4.7",
     "express": "^4.21.2",
+    "mongoose": "^5.13.23",
     "morgan": "^1.10.0"
+  },
+  "devDependencies": {
+    "@biomejs/biome": "1.9.4"
   }
 }
