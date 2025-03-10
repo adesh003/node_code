@@ -15,35 +15,8 @@ mongoose
   })
   .then(() => console.log('MongoDB Connected successful'));
 
-const tourSchemas = new mongoose.Schema({
-  name: {
-    type: String,
-    require: [true, 'Name required'],
-    unique: true,
-  },
-  rating: {
-    type: Number,
-    default: 4.5,
-  },
-  price: {
-    type: Number,
-    require: [true, 'Must have price'],
-  },
-});
 
-const Tour = mongoose.model('Tour', tourSchemas);
 
-const testTour = new Tour({
-  name: 'the park camper',
-  // rating: 4,
-  price: 34,
-});
-
-testTour.save().then(doc =>{
-  console.log(doc)
-}).catch(err =>{
-  console.log('ERROR😢' ,err)
-})
 
 const app = require('./app');
 console.log(process.env);
