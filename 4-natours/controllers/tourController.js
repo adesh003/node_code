@@ -9,15 +9,15 @@ const Tour = require('./../models/tourModel')
 // tourRouter.route('/').get(getAllTours).post(createTour).delete(deleteTour);
 // tourRouter.route('/:id').get(getTour).patch(updateTour);
 
-exports.CheckBody = (req, res, next) => {
-  if (!req.body.name || !req.body.price) {
-    return res.status(404).json({
-      status: 'fail',
-      message: 'Check name or price',
-    });
-  }
-  next();
-};
+// exports.CheckBody = (req, res, next) => {
+//   if (!req.body.name || !req.body.price) {
+//     return res.status(404).json({
+//       status: 'fail',
+//       message: 'Check name or price',
+//     });
+//   }
+//   next();
+// };
 
 // exports.checkID = (req, res, next, val) => {
 //   if (req.params.id * 1 > tours.length) {
@@ -53,15 +53,26 @@ exports.getTour = (req, res) => {
   // });
 };
 
-exports.createTour = (req, res) => {
-  // console.log(req.body);
+exports.createTour = async (req, res) => {
+
+  // const newTour = new Tour({})
+  // newTour.save()
+  try{
+  const newTour = await Tour.create(req.body)
 
   res.status(201).json({
     status: 'Succes',
-    // data: {
-    //   tour: newTour,
-    // },
+    data: {
+      tour: newTour,
+    },
   });
+} 
+catch(err){
+  res.status(400).json({
+    status:'failed',
+    message:err
+  })
+}
 };
 
 exports.updateTour = (req, res) => {

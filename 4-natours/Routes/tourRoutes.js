@@ -13,7 +13,7 @@ const tourRouter = express.Router();
 tourRouter
 .route('/')
 .get(tourController.getAllTours)
-.post(tourController.CheckBody,tourController.createTour)
+.post(tourController.createTour)
 .delete(tourController.deleteTour);
 
 tourRouter.route('/:id')
