@@ -34,9 +34,9 @@ const tourSchemas = new mongoose.Schema({
 const Tour = mongoose.model('Tour', tourSchemas);
 
 const testTour = new Tour({
-  name: 'the Forest Hiker',
-  rating: 4.7,
-  price: 345,
+  name: 'the park camper',
+  // rating: 4,
+  price: 34,
 });
 
 testTour.save().then(doc =>{
