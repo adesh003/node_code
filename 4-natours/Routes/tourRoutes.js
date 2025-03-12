@@ -12,7 +12,7 @@ const tourRouter = express.Router();
 
 tourRouter
 .route('/')
-.get(tourController.getAllTours)
+.get(tourController.getAllTours) 
 .post(tourController.createTour)
 
 
