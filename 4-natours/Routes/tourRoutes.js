@@ -14,10 +14,11 @@ tourRouter
 .route('/')
 .get(tourController.getAllTours)
 .post(tourController.createTour)
-.delete(tourController.deleteTour);
+
 
 tourRouter.route('/:id')
 .get(tourController.getTour)
-.patch(tourController.updateTour);
+.patch(tourController.updateTour)
+.delete(tourController.deleteTour);
 
 module.exports = tourRouter;
