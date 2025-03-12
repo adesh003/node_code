@@ -43,7 +43,7 @@ exports.getAllTours = async (req, res) => {
   });
 }
 catch(err){
-  res.status(400).json({
+  res.status(404).json({
     status:"Failed",
     message:err
   })
@@ -55,6 +55,13 @@ exports.getTour = async (req, res) => {
   try{
     const tour = await Tour.findById(req.params.id)
     // Tour.findOne({__id: req.param.id})
+    
+    res.status(200).json({
+      status:"success",
+      data:{
+        tour
+      }
+    })
   }
   catch(err){
      res.status(400).json({
