@@ -1,36 +1,11 @@
-// const fs = require('fs');
-// const { nextTick } = require('process');
 
 const Tour = require('./../models/tourModel');
 
-// const tours = JSON.parse(
-//   fs.readFileSync(`${__dirname}/../starter/dev-data/data/tours-simple.json`)
-// );
-// tourRouter.route('/').get(getAllTours).post(createTour).delete(deleteTour);
-// tourRouter.route('/:id').get(getTour).patch(updateTour);
-
-// exports.CheckBody = (req, res, next) => {
-//   if (!req.body.name || !req.body.price) {
-//     return res.status(404).json({
-//       status: 'fail',
-//       message: 'Check name or price',
-//     });
-//   }
-//   next();
-// };
-
-// exports.checkID = (req, res, next, val) => {
-//   if (req.params.id * 1 > tours.length) {
-//     return res.status(404).json({
-//       status: 'fail',
-//       message: 'invalid ID',
-//     });
-//   }
-//   next();
-// };
 
 exports.getAllTours = async (req, res) => {
   try {
+    
+    console.log(req.query)
     const tours = await Tour.find();
 
     res.status(200).json({
