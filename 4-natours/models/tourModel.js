@@ -48,7 +48,8 @@ const tourSchemas = new mongoose.Schema({
   image:[String],
  createdAt: {
   type: Date,
-  default: Date.now // ✅ Correct
+  default: Date.now ,// ✅ Correct
+  select:false
 },
   startDates:[Date],
   
