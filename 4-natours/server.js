@@ -17,11 +17,7 @@ mongoose
     tlsAllowInvalidCertificates: true, // Bypass SSL issues
   })
   .then(() => console.log('MongoDB Connected successful'));
-
-
-
-
-
+ 
 console.log(process.env);
 const port = 5000;
 app.listen(port, () => {

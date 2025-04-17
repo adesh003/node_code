@@ -96,22 +96,22 @@ const tourSchemas = new mongoose.Schema({
 //  })
 
 // QUARY MIDDLEWARE
-
 tourSchemas.pre(/^find/, function(next){
     this.find({ secretTour:{$ne:true}});
     this.start = Date.now();
-  next()
+    next()
 })
 
 
-tourSchemas.post(/^find/ , function(docs,next){
-  console.log(`Quary took ${Date.now()- this.start} millisecond`)
-  console.log(docs);
-  next();
-})
+
+// tourSchemas.post(/^find/ , function(docs,next){
+//   console.log(`Quary took ${Date.now()- this.start} millisecond`)
+//   console.log(docs);
+//   next();
+// })
  
 tourSchemas.pre('aggregate', function(next){
-  this.pipeline().unshift({ $match:{secretTour :{$ne= true}}})
+  this.pipeline().unshift({ $match:{secretTour :{$ne: true}}})
   console.log(this);
   next();
 })
