@@ -5,12 +5,13 @@
   "main": "index.js",
   "scripts": {
     "start": "nodemon server.js",
-    "start:prod":"NODE_ENV= production nodemon server.js",
-    "debug":"ndb server.js"
+    "start:prod": "cross-env NODE_ENV=production nodemon server.js",
+    "debug": "ndb server.js"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "cross-env": "^7.0.3",
     "dotenv": "^16.4.7",
     "express": "^4.21.2",
     "mongoose": "^5.13.23",
