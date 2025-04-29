@@ -16,10 +16,21 @@ mongoose
     useUnifiedTopology: true,
     tlsAllowInvalidCertificates: true, // Bypass SSL issues
   })
-  .then(() => console.log('MongoDB Connected successful'));
+  .then(() => console.log('MongoDB Connected successful'))
+  
  
 console.log(process.env);
 const port = 5000;
-app.listen(port, () => {
+const server= app.listen(port, () => {
   console.log(`APP runing on port ${port}`);
 });
+
+process.on('unhandledRejection' ,err =>{
+  console.log(err.name , err.message);
+  console.log("UNHANDLED REJECTION ! SHUTING DOWN")
+  server.close(() =>{
+     process.exit(1);
+  });
+ 
+})
+
