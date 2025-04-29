@@ -1,45 +1,34 @@
 const express = require('express');
-const app = express();
-// const fs = require('fs');
-const globalErrorHandler = require('./controllers/errorController')
-const AppError = require('./utils/appError')
-
 const morgan = require('morgan');
-const tourRouter = require('./Routes/tourRoutes')
-const userRouter = require('./Routes/userRoutes');
 
-/// 1 ) MIDDLEWARE
+const AppError = require('./utils/appError');
+const globalErrorHandler = require('./controllers/errorController');
+const tourRouter = require('./routes/tourRoutes');
+const userRouter = require('./routes/userRoutes');
 
-app.use(morgan('dev'));
+const app = express();
+
+// 1) MIDDLEWARES
+if (process.env.NODE_ENV === 'development') {
+  app.use(morgan('dev'));
+}
 
 app.use(express.json());
-// app.use((req, res, next) => {
-//   console.log('hello from the middleware');
-//   next();
-// });
+app.use(express.static(`${__dirname}/public`));
 
 app.use((req, res, next) => {
   req.requestTime = new Date().toISOString();
   next();
 });
 
-
-// ROUTE HANDLER
-
 // 3) ROUTES
-
-
-
 app.use('/api/v1/tours', tourRouter);
-app.use('/api/v1/user', userRouter);
+app.use('/api/v1/users', userRouter);
 
-app.all('*', (req,res,next)=>{
+app.all('*', (req, res, next) => {
+  next(new AppError(`Can't find ${req.originalUrl} on this server!`, 404));
+});
 
-  next(new AppError(`can't find ${req.originalUrl} on this server`, 404));
-})
+app.use(globalErrorHandler);
 
-
-app.use(globalErrorHandler)
-
-// SERVER
-module.exports = app
+module.exports = app;
