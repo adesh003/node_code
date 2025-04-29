@@ -56,8 +56,10 @@ module.exports = (err, req, res, next) => {
   err.status = err.status || 'error';
 
   if (process.env.NODE_ENV === 'development') {
+     console.log('App running in DEV mode');
     sendErrorDev(err, res);
-  } else if (process.env.NODE_ENV === 'production') {
+  } 
+  else if (process.env.NODE_ENV === 'production') {
     let error = { ...err };
 
     if (error.name === 'CastError') error = handleCastErrorDB(error);

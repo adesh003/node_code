@@ -28,7 +28,14 @@ const userSchemas = new mongoose.Schema({
     type: String,
     require: [true, 'Password Required'],
     minLength: [8, 'Pasword must be 8 charcter'],
-  },
+    validate: {
+      //  this only work on CREATE AND SAVE!!
+      validator: function (el) {
+        return el === this.password; // abc===abc
+      },
+      message:"Passwords are not same"
+    },
+  }
 });
 
 const User = mongoose.model('User', userSchemas);

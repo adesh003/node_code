@@ -1,6 +1,8 @@
 const mongoose = require('mongoose');
 const dotenv = require('dotenv');
 
+
+
 process.on('uncaughtException', (err) => {
   console.log('UNCAUGHT EXCEPTION! SHUTING DOWN');
   console.log(err.name, err.message);
@@ -21,7 +23,9 @@ mongoose
     useUnifiedTopology: true,
     tlsAllowInvalidCertificates: true, // Bypass SSL issues
   })
-  .then(() => console.log('MongoDB Connected successful'))
+  .then(() => 
+    
+    console.log('MongoDB Connected successful'))
   
  
 console.log(process.env);
