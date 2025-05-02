@@ -4,13 +4,14 @@
   "description": "learining node express and mongodb",
   "main": "index.js",
   "scripts": {
-    "start":"cross-env NODE_ENV=development nodemon server.js",
+    "start": "cross-env NODE_ENV=development nodemon server.js",
     "start:prod": "cross-env NODE_ENV=production nodemon server.js",
     "debug": "ndb server.js"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "bcryptjs": "^3.0.2",
     "cross-env": "^7.0.3",
     "dotenv": "^16.4.7",
     "express": "^4.21.2",
