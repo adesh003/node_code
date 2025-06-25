@@ -4,75 +4,94 @@ const slugify = require('slugify')
 
 
 
-const tourSchemas = new mongoose.Schema({
-  name: {
-    type: String,
-    require: [true, 'Name required'],
-    unique: true,
-    maxLength:[40,'A tour name must have less or equal than 40 characters'],
-    minLength:[10,'A tour name must have less or equal than 10 characters']
-  },
-  
-  slug:String,
-  
-  duration: {
-    type: Number,
-    required: [true, 'A tour must have duration'],
-  },
-  maxGroupSize: {
-    type: Number,
-    required: [true, 'A tour must have group size'],
-  },
-  difficulty: {
-    type: String,
-    required: [true, 'A tour must have difficulty'],
-  },
-  ratingAverage: {
-    type: Number,
-    default: 4.5,
-    min:[1, 'Rating must be above 0'],
-    max:[5, "Must be below 5"]
-  },
-  ratingQuantity: {
-    type: Number,
-    default: 0,
-  },
-  price: {
-    type: Number,
-    require: [true, 'Must have price'],
-  },
-  priceDiscount: Number,
-  summary: {
-    type: String,
-    trim: true,
-    required: [true, 'A tour must have summary'],
-  },
-  discription: {
-    type: String,
-    trim: true,
-  },
-  imageCover:{
-    type:String,
-    required: [true, 'A tour must have cover image']
-  },
-  image:[String],
- createdAt: {
-  type: Date,
-  default: Date.now ,
-  select:false
-},
-  startDates:[Date],
-  secretTour:{
-    type:Boolean,
-    default:false,
-    
-  }
-  
-},{
-  toJSON:{ virtuals :true},
-  toObject:{ virtuals :true}
+const tourSchemas = new mongoose.Schema(
+  {
+    name: {
+      type: String,
+      require: [true, 'Name required'],
+      unique: true,
+      maxLength: [40, 'A tour name must have less or equal than 40 characters'],
+      minLength: [10, 'A tour name must have less or equal than 10 characters'],
+    },
 
-});
+    slug: String,
+
+    duration: {
+      type: Number,
+      required: [true, 'A tour must have duration'],
+    },
+    maxGroupSize: {
+      type: Number,
+      required: [true, 'A tour must have group size'],
+    },
+    difficulty: {
+      type: String,
+      required: [true, 'A tour must have difficulty'],
+      enum: {
+        values: ['easy', 'medium', 'difficult'],
+        message: 'Difficulty is either easy , medium , difficult',
+      },
+    },
+    ratingAverage: {
+      type: Number,
+      default: 4.5,
+      min: [1, 'Rating must be above 0'],
+      max: [5, 'Must be below 5'],
+    },
+    ratingQuantity: {
+      type: Number,
+      default: 0,
+    },
+    price: {
+      type: Number,
+      require: [true, 'Must have price'],
+    },
+    priceDiscount: Number,
+    summary: {
+      type: String,
+      trim: true,
+      required: [true, 'A tour must have summary'],
+    },
+    discription: {
+      type: String,
+      trim: true,
+    },
+    imageCover: {
+      type: String,
+      required: [true, 'A tour must have cover image'],
+    },
+    image: [String],
+    createdAt: {
+      type: Date,
+      default: Date.now,
+      select: false,
+    },
+    startDates: [Date],
+    secretTour: {
+      type: Boolean,
+      default: false,
+    },
+    
+    
+    
+    startLocation: {
+      // GEO JSON
+      type: {
+        type: String,
+        default: 'Point',
+        enum: ['Point'],
+      },
+      coordinates: [Number],
+      address: String,
+      description: String,
+    },
+  },
+
+  {
+    toJSON: { virtuals: true },
+    toObject: { virtuals: true },
+  }
+);
 
 
  tourSchemas.virtual('durationWeeks').get(function() {
