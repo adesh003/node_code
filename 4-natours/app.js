@@ -7,7 +7,6 @@ const globalErrorHandler = require('./controllers/errorController');
 const tourRouter = require('./Routes/tourRoutes');
 const userRouter = require('./Routes/userRoutes');
 const hpp = require ('hpp')
-
 const app = express();
 
 // 1)GLOBAL MIDDLEWARES
@@ -24,6 +23,10 @@ const limiter= rateLimit({
   windowMs:60 * 60 *1000,
   message:"Too many request from this IP, please try again in an hour!"
 })
+
+
+
+
 
 app.use('/api' , limiter);
 

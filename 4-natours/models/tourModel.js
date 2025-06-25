@@ -1,7 +1,7 @@
 
 const mongoose = require('mongoose');
 const slugify = require('slugify')
-
+const User = require('./userModel')
 
 
 const tourSchemas = new mongoose.Schema(
@@ -85,6 +85,24 @@ const tourSchemas = new mongoose.Schema(
       address: String,
       description: String,
     },
+    locaton:[
+      {
+        type:{
+          type:String,
+          default:"point",
+          enum:['point'],
+        },
+        coordinates:[Number],
+        address: String,
+        description:String,
+        day:Number
+      }
+    ],
+    guides:[
+     { type:mongoose.Schema.ObjectId,
+      ref:'User'
+     }
+    ]
   },
 
   {
@@ -102,6 +120,12 @@ const tourSchemas = new mongoose.Schema(
   this.slug= slugify(this.name , {lower:true})
   next();
  })
+ 
+//  tourSchemas.pre('save' , async function(next){
+//  const guidesPromises=  this.guide.map(async id => await User.findById(id))
+//  this.guide = await Promise.all(guidesPromises)
+//  })
+ 
 
 //   tourSchemas.pre('save', function(next){
 //     console.log("will save document")
@@ -126,12 +150,25 @@ tourSchemas.pre(/^find/, function(next){
 
 
 
-// tourSchemas.post(/^find/ , function(docs,next){
-//   console.log(`Quary took ${Date.now()- this.start} millisecond`)
-//   console.log(docs);
-//   next();
-// })
- 
+
+
+tourSchemas.post(/^find/ , function(docs,next){
+  console.log(`Quary took ${Date.now()- this.start} millisecond`)
+  
+  next();
+})
+
+
+tourSchemas.pre(/^find/ , function(next){
+  this.populate({
+    path: 'guides',
+    select: '-__v -passwordChangedAt',
+  });
+  
+  next()
+} )
+
+
 tourSchemas.pre('aggregate', function(next){
   this.pipeline().unshift({ $match:{secretTour :{$ne: true}}})
   console.log(this);
