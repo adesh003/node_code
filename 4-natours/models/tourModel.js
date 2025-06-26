@@ -74,36 +74,36 @@ const tourSchemas = new mongoose.Schema(
     
     
     
-    startLocation: {
-      // GEO JSON
-      type: {
-        type: String,
-        default: 'Point',
-        enum: ['Point'],
-      },
-      coordinates: [Number],
-      address: String,
-      description: String,
-    },
-    locaton:[
-      {
-        type:{
-          type:String,
-          default:"point",
-          enum:['point'],
-        },
-        coordinates:[Number],
-        address: String,
-        description:String,
-        day:Number
-      }
-    ],
-    guides:[
-     { type:mongoose.Schema.ObjectId,
-      ref:'User'
-     }
-    ]
-  },
+  //   startLocation: {
+  //     // GEO JSON
+  //     type: {
+  //       type: String,
+  //       default: 'Point',
+  //       enum: ['Point'],
+  //     },
+  //     coordinates: [Number],
+  //     address: String,
+  //     description: String,
+  //   },
+  //   locaton:[
+  //     {
+  //       type:{
+  //         type:String,
+  //         default:"point",
+  //         enum:['point'],
+  //       },
+  //       coordinates:[Number],
+  //       address: String,
+  //       description:String,
+  //       day:Number
+  //     }
+  //   ],
+  //   guides:[
+  //    { type:mongoose.Schema.ObjectId,
+  //     ref:'User'
+  //    }
+  //   ]
+   },
 
   {
     toJSON: { virtuals: true },
@@ -152,21 +152,21 @@ tourSchemas.pre(/^find/, function(next){
 
 
 
-tourSchemas.post(/^find/ , function(docs,next){
-  console.log(`Quary took ${Date.now()- this.start} millisecond`)
+// tourSchemas.post(/^find/ , function(docs,next){
+//   console.log(`Quary took ${Date.now()- this.start} millisecond`)
   
-  next();
-})
+//   next();
+// })
 
 
-tourSchemas.pre(/^find/ , function(next){
-  this.populate({
-    path: 'guides',
-    select: '-__v -passwordChangedAt',
-  });
+// tourSchemas.pre(/^find/ , function(next){
+//   this.populate({
+//     path: 'guides',
+//     select: '-__v -passwordChangedAt'
+//   });
   
-  next()
-} )
+//   next()
+// } )
 
 
 tourSchemas.pre('aggregate', function(next){
