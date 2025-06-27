@@ -2,15 +2,20 @@ const express = require('express');
 const morgan = require('morgan');
 const rateLimit = require('express-rate-limit');
 const helmet = require('helmet')
+const hpp = require('hpp');
+const app = express();
+
+
 const AppError = require('./utils/appError');
 const globalErrorHandler = require('./controllers/errorController');
 const tourRouter = require('./Routes/tourRoutes');
 const userRouter = require('./Routes/userRoutes');
-const hpp = require ('hpp')
-const app = express();
 
+const reviewRouter= require('./Routes/reviewRoutes')
 // 1)GLOBAL MIDDLEWARES
 // SET Security HTTP HEADER
+
+
 app.use(helmet());
 
 // DEVELOPMENT LOGIN
@@ -56,6 +61,9 @@ app.use((req, res, next) => {
 // 3) ROUTES
 app.use('/api/v1/tours', tourRouter);
 app.use('/api/v1/users', userRouter);
+app.use('/api/v1/reviews', reviewRouter);
+
+
 
 app.all('*', (req, res, next) => {
   next(new AppError(`Can't find ${req.originalUrl} on this server!`, 404));

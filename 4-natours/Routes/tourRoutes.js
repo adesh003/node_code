@@ -2,7 +2,7 @@ const tourController = require('./../controllers/tourController')
 const express = require('express')
 const authController = require("./../controllers/authController")
 const tourRouter = express.Router();
-
+const ReviewController = require('../controllers/reviewController')
 
 tourRouter
   .route('/top-5-cheap')
@@ -19,6 +19,7 @@ tourRouter
   .get(authController.protect, tourController.getAllTours)
   .post(tourController.createTour);
 
+  
 
 tourRouter.route('/:id')
 .get(tourController.getTour)
@@ -28,4 +29,8 @@ tourRouter.route('/:id')
 .restrictTo("admin" , "lead-guide"),
 tourController.deleteTour);
 
+
+
+  
+  
 module.exports = tourRouter;

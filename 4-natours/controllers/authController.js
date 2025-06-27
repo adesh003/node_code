@@ -10,7 +10,7 @@ const sendEmail = require('../utils/email');
 
 const signToken = (id) => {
   return jwt.sign({ id }, process.env.JWT_SECRET, {
-    expiresIn: process.env.JWT_EXPIRE_IN, // ✅ fixed spelling
+    expiresIn: process.env.JWT_EXPIRE_IN// ✅ fixed spelling
   });
 };
 
@@ -93,6 +93,11 @@ exports.protect = catchAsync(async (req, res, next) => {
   }
   // 2) Verification token or Validate token
   const decoded = await promisify(jwt.verify)(token, process.env.JWT_SECRET);
+  
+  
+  /////////////////////////
+  console.log('TOKEN RECEIVED:', token);
+
 
   //3) check if user still exists
 
