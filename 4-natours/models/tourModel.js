@@ -74,35 +74,38 @@ const tourSchemas = new mongoose.Schema(
     
     
     
-  //   startLocation: {
-  //     // GEO JSON
-  //     type: {
-  //       type: String,
-  //       default: 'Point',
-  //       enum: ['Point'],
-  //     },
-  //     coordinates: [Number],
-  //     address: String,
-  //     description: String,
-  //   },
-  //   locaton:[
-  //     {
-  //       type:{
-  //         type:String,
-  //         default:"point",
-  //         enum:['point'],
-  //       },
-  //       coordinates:[Number],
-  //       address: String,
-  //       description:String,
-  //       day:Number
-  //     }
-  //   ],
-  //   guides:[
-  //    { type:mongoose.Schema.ObjectId,
-  //     ref:'User'
-  //    }
-  //   ]
+    startLocation: {
+      // GEO JSON
+      type: {
+        type: String,
+        default: 'Point',
+        enum: ['Point'],
+      },
+      coordinates: [Number],
+      address: String,
+      description: String,
+    },
+    locaton:[
+      {
+        type:{
+          type:String,
+          default:"point",
+          enum:['point'],
+        },
+        coordinates:[Number],
+        address: String,
+        description:String,
+        day:Number
+      }
+    ],
+    guides:[
+     { type:mongoose.Schema.ObjectId,
+      ref:'User'
+     }
+    ],
+    // reviews:[
+    //   type:mongoose.Schema.ObjectId
+    // ]
    },
 
   {
@@ -115,6 +118,16 @@ const tourSchemas = new mongoose.Schema(
  tourSchemas.virtual('durationWeeks').get(function() {
   return this.duration / 7;
  })
+ 
+ 
+ //virtual populate 
+ tourSchemas.virtual('review',{
+  ref:'review',
+  foreignField:'tour',
+  localField:'_id'
+ })
+ 
+ 
  // DOCUMENT MIDDLEWARE RUN BEFORE the .save() and .create()
  tourSchemas.pre('save', function (next){
   this.slug= slugify(this.name , {lower:true})
