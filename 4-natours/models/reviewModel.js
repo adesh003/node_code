@@ -1,7 +1,3 @@
-// review // rating // createdAT // ref tp tour // ref to user
-
-
-
 const mongoose = require('mongoose');
 const { isEmpty } = require('validator');
 
@@ -10,10 +6,10 @@ const reviewSchema = new mongoose.Schema({
     type: String,
     required: [true, 'Review can not be Empty'],
   },
-  ratting: {
+  rating: {
     type: Number,
     min: 1,
-    maz: 5,
+    max: 5,
   },
 
   createdAt: {
@@ -37,7 +33,17 @@ const reviewSchema = new mongoose.Schema({
   toObject: { virtuals: true },
 });
 
-const Review = mongoose.model('Review' , reviewSchema)
+reviewSchema.pre(/^find/, function (next) {
+  this.populate({
+    path: 'tour',
+    select: 'name',
+  }).populate({
+    path: 'user',
+    select: 'name photo'
+  });
+});
+
+const review = mongoose.model('review', reviewSchema);
 
 
-module.exports = Review;
+module.exports = review;
