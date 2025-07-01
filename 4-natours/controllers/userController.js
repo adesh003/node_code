@@ -12,23 +12,15 @@ const filterObj = (obj,...allowedFiled) =>{
   });
 return newObj;
 }
-exports.getAllUser =catchAsync(async(req, res,next) => {
-  
-   const users = await User.find();
 
-    // SEND RESPONSE
-    res.status(200).json({
-      status: 'success',
-      result: users.length,
-      data: {
-        users,
-      },
-    });
-  })
+
+  
+
+
 exports.createUser = (req, res) => {
   res.status(500).json({
     status: 'error',
-    message: 'this route not yet defined',
+    message: 'this route not yet defined ! please use/ signup insted',
   });
 };
 
@@ -73,12 +65,11 @@ exports.deleteMe = catchAsync(async(req, res, body) =>
   })
 })
 
-exports.getUser = (req, res) => {
-  res.status(500).json({
-    status: 'error',
-    message: 'this route not yet defined',
-  });
-};
+
+
+exports.getAllUser = factory.getAll(User);
+exports.getUser = factory.getOne(User);
+
 // Do not Update password with this route
 exports.updateUser = factory.updateOne(User);
 exports.deleteUser = factory.deleteOne(User);
