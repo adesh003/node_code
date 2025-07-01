@@ -115,6 +115,11 @@ const tourSchemas = new mongoose.Schema(
 );
 
 
+
+// tourSchemas.index({price:1})
+tourSchemas.index({ price: 1 , ratingAverage:-1 });
+tourSchemas.index({slug:1})
+
  tourSchemas.virtual('durationWeeks').get(function() {
   return this.duration / 7;
  })
@@ -134,25 +139,7 @@ const tourSchemas = new mongoose.Schema(
   next();
  })
  
-//  tourSchemas.pre('save' , async function(next){
-//  const guidesPromises=  this.guide.map(async id => await User.findById(id))
-//  this.guide = await Promise.all(guidesPromises)
-//  })
- 
 
-//   tourSchemas.pre('save', function(next){
-//     console.log("will save document")
-//     next();
-//   })
-
-
-
-// AROW FUNCTION ME .THIS KA USE NHI KR SKTE HAI , YE FACILITY AVIALABEL HE NHI HOTA HAI
- 
-//  tourSchemas.post('save' , function(doc, next){
-//   console.log(doc);
-//   next();
-//  })
 
 // QUARY MIDDLEWARE
 tourSchemas.pre(/^find/, function(next){
